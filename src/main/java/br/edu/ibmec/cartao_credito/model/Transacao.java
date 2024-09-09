@@ -10,4 +10,6 @@ public class Transacao {
     public UUID id;
     public LocalDateTime dataTransacao;
     public double valor;
+    public String comerciante;
+    
 }
