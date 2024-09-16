@@ -7,6 +7,5 @@ import br.edu.ibmec.cartao_credito.model.Usuario;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
-
     
 }

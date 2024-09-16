@@ -4,16 +4,23 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.edu.ibmec.cartao_credito.model.Cartao;
 import br.edu.ibmec.cartao_credito.model.Usuario;
+import br.edu.ibmec.cartao_credito.repository.CartaoRepository;
+import br.edu.ibmec.cartao_credito.repository.UsuarioRepository;
 
 @Service
 public class UsuarioService {
-    private static List<Usuario> database = new ArrayList<>();
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private CartaoRepository cartaoRepository;
 
     public Usuario criarUsuario(String nome, String cpf, LocalDateTime dataNascimento) {
         Usuario usuario = new Usuario();
@@ -23,9 +30,9 @@ public class UsuarioService {
         
         usuario.setNome(nome);
         usuario.setDataNascimento(dataNascimento);
-        //usuario.setId(UUID.randomUUID());
         
-        database.add(usuario);
+        //INSERE NA BASE DE DADOS
+        usuarioRepository.save(usuario);
 
         return usuario;
     }
@@ -52,15 +59,23 @@ public class UsuarioService {
         //Associa um cartão a um usuario
         usuario.associarCartao(cartao);
 
+        //Salvar cartao de credito do usuario;
+        cartaoRepository.save(cartao);
+
+        //Atualiza o usuário com a referencia do cartao
+        usuarioRepository.save(usuario);
+
     }
 
     private Usuario findUsuario(int id) {
-        for (Usuario item : database) {
-            if (item.getId() == id) {
-                return item;
-            }
-        }
-        return null;
+        Optional<Usuario> usuario = usuarioRepository.findById(id);
+
+        if (usuario.isEmpty())
+            return null;
+
+        return usuario.get();
+
+
     }
     
 }
