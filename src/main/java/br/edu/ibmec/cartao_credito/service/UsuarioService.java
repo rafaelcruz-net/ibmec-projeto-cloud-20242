@@ -23,18 +23,18 @@ public class UsuarioService {
         
         usuario.setNome(nome);
         usuario.setDataNascimento(dataNascimento);
-        usuario.setId(UUID.randomUUID());
+        //usuario.setId(UUID.randomUUID());
         
         database.add(usuario);
 
         return usuario;
     }
 
-    public Usuario buscaUsuario(UUID id) {
+    public Usuario buscaUsuario(int id) {
         return this.findUsuario(id);
     }
 
-    public void associarCartao(Cartao cartao, UUID id) throws Exception {
+    public void associarCartao(Cartao cartao, int id) throws Exception {
         //Buscar usuario
 
         Usuario usuario = this.findUsuario(id);
@@ -54,7 +54,7 @@ public class UsuarioService {
 
     }
 
-    private Usuario findUsuario(UUID id) {
+    private Usuario findUsuario(int id) {
         for (Usuario item : database) {
             if (item.getId() == id) {
                 return item;
