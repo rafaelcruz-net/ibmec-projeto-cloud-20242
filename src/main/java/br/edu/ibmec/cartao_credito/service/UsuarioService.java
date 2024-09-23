@@ -24,10 +24,8 @@ public class UsuarioService {
 
     public Usuario criarUsuario(String nome, String cpf, LocalDateTime dataNascimento) {
         Usuario usuario = new Usuario();
-        
-        //TODO: Validar CPF
+
         usuario.setCpf(cpf);
-        
         usuario.setNome(nome);
         usuario.setDataNascimento(dataNascimento);
         
