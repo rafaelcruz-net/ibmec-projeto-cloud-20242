@@ -31,7 +31,6 @@ public class UsuarioService {
             throw new UsuarioException("Usuario com cpf informado já cadastrado");
         }
 
-
         //INSERE NA BASE DE DADOS
         usuarioRepository.save(usuario);
 
